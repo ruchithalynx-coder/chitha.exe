@@ -1810,3 +1810,130 @@ a {
         transition: none;
     }
 }
+
+
+/* ===== CHITHA.EXE — SHARED 3D MOTION WORLD ===== */
+#motion-world {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.78;
+  mix-blend-mode: screen;
+}
+
+#motion-world canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar,
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.skills-lab {
+  background:
+    radial-gradient(ellipse at 85% 15%, #c5ff4110, transparent 42%),
+    rgba(16, 16, 16, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.contact-section {
+  background: rgba(17, 17, 17, 0.78);
+  backdrop-filter: blur(2px);
+}
+
+/* Editorial motion across the page */
+.logo {
+  transition: letter-spacing 0.35s ease, color 0.35s ease;
+}
+.logo:hover {
+  letter-spacing: -0.5px;
+}
+
+.project-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.project-visual {
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.project-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 20%, #c5ff4114 48%, transparent 72%);
+  transform: translateX(-130%);
+  transition: transform 0.8s cubic-bezier(.2,.7,.2,1);
+}
+
+.project-card:hover .project-visual::after {
+  transform: translateX(130%);
+}
+
+.project-info h2 {
+  transition: color 0.25s ease, transform 0.35s ease;
+}
+.project-card:hover .project-info h2 {
+  color: var(--green);
+  transform: translateX(5px);
+}
+
+.skills-interface {
+  transform-style: preserve-3d;
+}
+.skill-display {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.skills-interface:hover .skill-display {
+  box-shadow: inset 0 0 48px #c5ff4108;
+}
+
+.about h2 span {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(.2,.7,.2,1), text-shadow 0.35s ease;
+}
+.about:hover h2 span {
+  transform: translateX(8px);
+  text-shadow: 0 0 24px #c5ff4138;
+}
+
+.contact-section .contact-link {
+  transform-style: preserve-3d;
+}
+.contact-section .contact-link:hover {
+  box-shadow: inset 3px 0 0 var(--green);
+}
+
+/* Keep the 3D layer behind readable content on small screens. */
+@media (max-width: 700px) {
+  #motion-world {
+    opacity: 0.38;
+  }
+  .skills-lab,
+  .contact-section {
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #motion-world {
+    display: none;
+  }
+  .project-card,
+  .project-info h2,
+  .about h2 span,
+  .logo {
+    transition: none !important;
+    transform: none !important;
+  }
+}
